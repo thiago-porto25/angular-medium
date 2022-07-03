@@ -1,11 +1,11 @@
 import { Component } from "@angular/core";
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  Validators,
-  ValidationErrors
-} from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { select, Store } from "@ngrx/store";
+import { Observable } from "rxjs";
+
+import { passwordMatchingValidator } from "src/app/shared/directives/password-match.validator";
+import { registerAction } from "src/app/auth/store/actions";
+import { isSubmittingSelector } from "src/app/auth/store/selectors";
 
 @Component({
   selector: "app-register",
@@ -33,20 +33,25 @@ export class RegisterComponent {
         Validators.maxLength(30)
       ])
     },
-    { validators: this.passwordMatchingValidator }
+    { validators: passwordMatchingValidator }
+  );
+  isSubmitting$: Observable<boolean> = this.store.pipe(
+    select(isSubmittingSelector)
   );
 
-  passwordMatchingValidator(control: AbstractControl): ValidationErrors | null {
-    const password = control.get("password");
-    const confirmation = control.get("confirmPassword");
-
-    return password?.value === confirmation?.value
-      ? null
-      : { notmathced: true };
-  }
+  constructor(private store: Store) {}
 
   onRegister(): void {
-    console.log(this.registerForm.value);
-    this.registerForm.reset();
+    if (this.registerForm.valid) {
+      this.store.dispatch(
+        registerAction({
+          request: {
+            username: this.registerForm.value?.username,
+            email: this.registerForm.value?.email,
+            password: this.registerForm.value?.password
+          }
+        })
+      );
+    }
   }
 }
