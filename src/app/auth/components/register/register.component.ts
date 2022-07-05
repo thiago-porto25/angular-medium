@@ -6,7 +6,12 @@ import { Observable } from "rxjs";
 import { passwordMatchingValidator } from "src/app/shared/directives/password-match.validator";
 
 import { registerAction } from "src/app/auth/store/actions/register.action";
-import { isSubmittingSelector } from "src/app/auth/store/selectors";
+import {
+  isSubmittingSelector,
+  validationErrorsSelector
+} from "src/app/auth/store/selectors";
+
+import { RegisterErrorsInterface } from "src/app/auth/types/RegisterErrors.interface";
 
 @Component({
   selector: "app-register",
@@ -16,6 +21,9 @@ import { isSubmittingSelector } from "src/app/auth/store/selectors";
 export class RegisterComponent {
   isSubmitting$: Observable<boolean> = this.store.pipe(
     select(isSubmittingSelector)
+  );
+  backendErrors$: Observable<RegisterErrorsInterface | null> = this.store.pipe(
+    select(validationErrorsSelector)
   );
   registerForm: FormGroup = new FormGroup(
     {
