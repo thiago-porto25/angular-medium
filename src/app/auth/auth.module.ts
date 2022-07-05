@@ -5,15 +5,16 @@ import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 
 import { AuthRoutingModule } from "src/app/auth/auth-routing.module";
+import { BackendErrorMessagesModule } from "src/app/shared/modules/backend-error-messages/backend-error-messages.module";
+
+import { AuthService } from "src/app/auth/services/auth.service";
+import { PersistanceService } from "../shared/services/persistance.service";
 
 import { authReducer } from "src/app/auth/store/reducers";
-import { AuthService } from "src/app/auth/services/auth.service";
 import { RegisterEffect } from "./store/effects/register.effect";
 
 import { RegisterComponent } from "src/app/auth/components/register/register.component";
 import { LoginComponent } from "src/app/auth/components/login/login.component";
-
-import { BackendErrorMessagesModule } from "src/app/shared/modules/backend-error-messages/backend-error-messages.module";
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { BackendErrorMessagesModule } from "src/app/shared/modules/backend-error
     EffectsModule.forFeature([RegisterEffect]),
     BackendErrorMessagesModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, PersistanceService],
   declarations: [RegisterComponent, LoginComponent]
 })
 export class AuthModule {}
