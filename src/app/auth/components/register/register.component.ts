@@ -15,8 +15,7 @@ import { RegisterErrorsInterface } from "src/app/auth/types/RegisterErrors.inter
 
 @Component({
   selector: "app-register",
-  templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.scss"]
+  templateUrl: "./register.component.html"
 })
 export class RegisterComponent {
   isSubmitting$: Observable<boolean> = this.store.pipe(

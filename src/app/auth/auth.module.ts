@@ -11,7 +11,8 @@ import { AuthService } from "src/app/auth/services/auth.service";
 import { PersistanceService } from "../shared/services/persistance.service";
 
 import { authReducer } from "src/app/auth/store/reducers";
-import { RegisterEffect } from "./store/effects/register.effect";
+import { RegisterEffect } from "src/app/auth/store/effects/register.effect";
+import { LoginEffect } from "src/app/auth/store/effects/login.effect";
 
 import { RegisterComponent } from "src/app/auth/components/register/register.component";
 import { LoginComponent } from "src/app/auth/components/login/login.component";
@@ -22,7 +23,7 @@ import { LoginComponent } from "src/app/auth/components/login/login.component";
     AuthRoutingModule,
     ReactiveFormsModule,
     StoreModule.forFeature("auth", authReducer),
-    EffectsModule.forFeature([RegisterEffect]),
+    EffectsModule.forFeature([RegisterEffect, LoginEffect]),
     BackendErrorMessagesModule
   ],
   providers: [AuthService, PersistanceService],
