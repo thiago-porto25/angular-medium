@@ -11,6 +11,7 @@ import { AuthModule } from "src/app/auth/auth.module";
 
 import { AppRoutingModule } from "src/app/app-routing.module";
 import { AppComponent } from "src/app/app.component";
+import { TopBarModule } from "src/app/shared/modules/top-bar/top-bar.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,7 @@ import { AppComponent } from "src/app/app.component";
     AppRoutingModule,
     StoreModule.forRoot({}),
     AuthModule,
+    TopBarModule,
     HttpClientModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25,
